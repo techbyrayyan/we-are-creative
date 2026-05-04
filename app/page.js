@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,18 +60,30 @@ export default function Home() {
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
+// Projects data
+const projects = [
+  { title: "Makaan Real Estate", category: "Web Application", link: "https://real-estate-delta-indol.vercel.app/", image: "/project1.png" },
+  { title: "Invoice Builder", category: "Web Application", link: "https://invoice-builder-ujch.vercel.app/", image: "/project2.png" },
+  { title: "Tess Therapy", category: "Mental Health Care", link: "https://testherapy.com/", image: "/project3.png" },
+  { title: "Sunset Motel", category: "Web Application", link: "https://motel-app-one.vercel.app/", image: "/project4.png" },
+  { title: "VitalScale", category: "Web Application", link: "https://deit-plan-guide.vercel.app/", image: "/project5.png" },
+  { title: "Modern Slider", category: "Web Application", link: "https://modern-slider-psi.vercel.app/", image: "/project6.png" }
+];
+// Duplicate array for seamless infinite marquee loop
+const infiniteProjects = [...projects, ...projects];
+
+
   return (
-    <main className="min-h-screen w-full bg-[#050505] text-white font-sans overflow-x-hidden">
+    <main className="min-h-screen w-full bg-[#050505] text-white font-sans">
       <div className="sticky top-0 z-50 bg-[#050505]/95 backdrop-blur-md border-b border-white/5">
-        <nav className="flex items-center justify-between px-8 py-4 max-w-[1400px] mx-auto transition-all duration-300">
+        <nav className="flex items-center justify-between px-6 lg:px-8 py-4 max-w-[1400px] mx-auto transition-all duration-300 relative z-[60]">
 
         {/* Logo Section */}
-        <div className="flex items-center cursor-pointer"> 
-          {/* Please save the second image as logo.png in the public folder */}
-          <img src="/img.png" alt="We Are Creative Logo" className="h-18 w-auto object-contain" style={{ mixBlendMode: 'screen' }} />
+        <div className="flex items-center cursor-pointer relative z-[70]"> 
+          <img src="/img.png" alt="We Are Creative Logo" className="h-10 lg:h-18 w-auto object-contain" style={{ mixBlendMode: 'screen' }} />
         </div> 
 
-        {/* Navigation Links */}
+        {/* Navigation Links - Desktop */}
         <div className="hidden lg:flex items-center gap-10 text-[15px] font-medium text-gray-300">
           <a href="#home" className={`relative group transition-colors ${activeSection === 'home' ? 'text-white' : 'hover:text-white'}`}>
             Home
@@ -94,13 +107,54 @@ export default function Home() {
           </a>
         </div>
 
-        {/* CTA Button */}
+        {/* Mobile Menu Button */}
+        <div className="lg:hidden flex items-center gap-4 relative z-[70]">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white p-2 focus:outline-none" aria-label="Toggle Menu">
+            {isMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            )}
+          </button>
+        </div>
+
+        {/* CTA Button - Desktop */}
         <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="hidden md:block rounded-full p-[1px] bg-gradient-to-r from-blue-600 via-teal-500 to-green-500 hover:opacity-90 transition-opacity">
           <div className="bg-[#050505] hover:bg-transparent transition-colors rounded-full px-7 py-2.5 text-sm font-semibold text-white tracking-wide">
             Let's Talk
           </div>
         </button>
         </nav>
+      </div>
+
+      {/* Mobile Menu Overlay - Moved outside sticky header for full-screen coverage */}
+      <div className={`lg:hidden fixed inset-0 bg-[#050505] z-[100] flex flex-col items-center justify-start pt-32 gap-6 transition-all duration-500 ease-in-out ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
+        {/* Mobile Menu Header (Logo & Close Button) */}
+        <div className="absolute top-0 left-0 w-full px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center"> 
+            <img src="/img.png" alt="We Are Creative Logo" className="h-10 w-auto object-contain" style={{ mixBlendMode: 'screen' }} />
+          </div> 
+          <button onClick={() => setIsMenuOpen(false)} className="text-white p-2 focus:outline-none" aria-label="Close Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <a href="#home" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold hover:text-[#00d260] transition-colors">Home</a>
+        <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold hover:text-[#00d260] transition-colors">About</a>
+        <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold hover:text-[#00d260] transition-colors">Services</a>
+        <a href="#projects" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold hover:text-[#00d260] transition-colors">Projects</a>
+        <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold hover:text-[#00d260] transition-colors">Contact Us</a>
+        <button 
+          onClick={() => {
+            setIsMenuOpen(false);
+            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+          }} 
+          className="mt-6 rounded-full p-[1px] bg-gradient-to-r from-blue-600 via-teal-500 to-green-500"
+        >
+          <div className="bg-[#050505] rounded-full px-8 py-3 text-base font-semibold text-white">
+            Let's Talk
+          </div>
+        </button>
       </div>
 
       {/* Hero Section */}
@@ -114,25 +168,25 @@ export default function Home() {
             </span>
           </div>
 
-          <h1 className="text-5xl mb-5 font-bold leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl mb-5 font-bold leading-tight">
             We Create Modern <br />
-            Websites That <span className="text-[#00d260]">Drive <br></br> Results</span>
+            Websites That <span className="text-[#00d260]">Drive <br className="hidden md:block" /> Results</span>
           </h1>
 
           <p className="text-gray-400 mb-5 text-lg max-w-[500px] leading-relaxed">
             A creative web agency delivering fast, responsive and high-performing websites for startups, businesses and brands.
           </p>
 
-          <div className="flex items-center mb-5 gap-6">
-            <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="relative overflow-hidden group bg-gradient-to-r from-teal-400 to-[#00d260] font-bold px-8 py-4 rounded-xl transition-all border border-transparent hover:border-gray-700">
+          <div className="flex flex-col sm:flex-row items-center mb-5 gap-6">
+            <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="w-full sm:w-auto relative overflow-hidden group bg-gradient-to-r from-teal-400 to-[#00d260] font-bold px-8 py-4 rounded-xl transition-all border border-transparent hover:border-gray-700">
               <div className="absolute inset-0 bg-[#050505] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
-              <span className="relative z-10 flex items-center gap-2 text-black group-hover:text-white transition-colors duration-300">
+              <span className="relative z-10 flex items-center justify-center gap-2 text-black group-hover:text-white transition-colors duration-300">
                 Our Services <span>→</span>
               </span>
             </button>
-            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="relative overflow-hidden group border border-gray-700 font-bold px-8 py-4 rounded-xl transition-all hover:border-transparent">
+            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="w-full sm:w-auto relative overflow-hidden group border border-gray-700 font-bold px-8 py-4 rounded-xl transition-all hover:border-transparent">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-[#00d260] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
-              <span className="relative z-10 flex items-center gap-2 text-white group-hover:text-black transition-colors duration-300">
+              <span className="relative z-10 flex items-center justify-center gap-2 text-white group-hover:text-black transition-colors duration-300">
                 View Portfolio <span>→</span>
               </span>
             </button>
@@ -179,7 +233,7 @@ export default function Home() {
       <section id="about" className="max-w-[1400px] mx-auto px-8 py-24 flex flex-col lg:flex-row items-center gap-16">
 
         {/* Left Side - Image Placeholder Div */}
-        <div className="flex-1 w-full h-[500px] rounded-3xl border border-[#00d260]/30 bg-[#111] relative group overflow-hidden">
+        <div className="flex-1 w-full h-[300px] md:h-[500px] rounded-3xl border border-[#00d260]/30 bg-[#111] relative group overflow-hidden">
           {/* Main Image */}
           <img
             src="/laptopman.png"
@@ -255,41 +309,41 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {/* Service 1: Web Development */}
-          <div className="bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem] hover:border-blue-500/40 transition-all duration-500 group relative flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-3xl bg-blue-500/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
+          <div className="bg-[#0a0a0a] border border-white/5 p-6 rounded-3xl hover:border-blue-500/40 transition-all duration-500 group relative flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-2xl bg-blue-500/5 flex items-center justify-center mb-6 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative w-20 h-20 rounded-2xl border border-blue-500/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
+              <div className="relative w-12 h-12 rounded-xl border border-blue-500/30 flex items-center justify-center bg-[#0a0a0a]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-4">Web Development</h3>
-            <p className="text-gray-500 text-sm leading-relaxed mb-10">Custom websites built with modern technologies.</p>
-            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-3.5 rounded-xl border border-white/10 text-sm font-bold group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
+            <h3 className="text-xl font-bold mb-3">Web Development</h3>
+            <p className="text-gray-500 text-xs leading-relaxed mb-6">Custom websites built with modern technologies.</p>
+            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-2.5 rounded-xl border border-white/10 text-xs font-bold group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
               Learn More →
             </button>
           </div>
 
           {/* Service 2: UI/UX Design */}
-          <div className="bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem] hover:border-[#00d260]/40 transition-all duration-500 group relative flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-3xl bg-[#00d260]/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
+          <div className="bg-[#0a0a0a] border border-white/5 p-6 rounded-3xl hover:border-[#00d260]/40 transition-all duration-500 group relative flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-2xl bg-[#00d260]/5 flex items-center justify-center mb-6 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-[#00d260]/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative w-20 h-20 rounded-2xl border border-[#00d260]/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#00d260] drop-shadow-[0_0_10px_rgba(0,210,96,0.8)]"><path d="M12 19l7-7 3 3-7 7-3-3z" /><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="M2 2l5 2" /><path d="M2 2l2 5" /><path d="M11.5 11.5l3 3" /></svg>
+              <div className="relative w-12 h-12 rounded-xl border border-[#00d260]/30 flex items-center justify-center bg-[#0a0a0a]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#00d260] drop-shadow-[0_0_10px_rgba(0,210,96,0.8)]"><path d="M12 19l7-7 3 3-7 7-3-3z" /><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="M2 2l5 2" /><path d="M2 2l2 5" /><path d="M11.5 11.5l3 3" /></svg>
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-4">UI/UX Design</h3>
-            <p className="text-gray-500 text-sm leading-relaxed mb-10">Beautiful, user-friendly designs that convert.</p>
-            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-3.5 rounded-xl border border-white/10 text-sm font-bold group-hover:bg-[#00d260] group-hover:border-[#00d260] group-hover:text-black transition-all duration-300">
+            <h3 className="text-xl font-bold mb-3">UI/UX Design</h3>
+            <p className="text-gray-500 text-xs leading-relaxed mb-6">Beautiful, user-friendly designs that convert.</p>
+            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-2.5 rounded-xl border border-white/10 text-xs font-bold group-hover:bg-[#00d260] group-hover:border-[#00d260] group-hover:text-black transition-all duration-300">
               Learn More →
             </button>
           </div>
 
           {/* Service 3: React Development */}
-          <div className="bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem] hover:border-cyan-400/40 transition-all duration-500 group relative flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-3xl bg-cyan-400/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
+          <div className="bg-[#0a0a0a] border border-white/5 p-6 rounded-3xl hover:border-cyan-400/40 transition-all duration-500 group relative flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-2xl bg-cyan-400/5 flex items-center justify-center mb-6 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-cyan-400/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative w-20 h-20 rounded-2xl border border-cyan-400/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="-11.5 -10.23174 23 20.46348" className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
+              <div className="relative w-12 h-12 rounded-xl border border-cyan-400/30 flex items-center justify-center bg-[#0a0a0a]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-11.5 -10.23174 23 20.46348" className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
                   <circle cx="0" cy="0" r="2.05" fill="currentColor"/>
                   <g stroke="currentColor" strokeWidth="1.2" fill="none">
                     <ellipse rx="11" ry="4.2"/>  
@@ -299,39 +353,39 @@ export default function Home() {
                 </svg>
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-4">React Development</h3>
-            <p className="text-gray-500 text-sm leading-relaxed mb-10">Fast, scalable and dynamic web applications.</p>
-            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-3.5 rounded-xl border border-white/10 text-sm font-bold group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-all duration-300">
+            <h3 className="text-xl font-bold mb-3">React Development</h3>
+            <p className="text-gray-500 text-xs leading-relaxed mb-6">Fast, scalable and dynamic web applications.</p>
+            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-2.5 rounded-xl border border-white/10 text-xs font-bold group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-all duration-300">
               Learn More →
             </button>
           </div>
 
           {/* Service 4: Backend Development */}
-          <div className="bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem] hover:border-[#00d260]/40 transition-all duration-500 group relative flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-3xl bg-[#00d260]/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
+          <div className="bg-[#0a0a0a] border border-white/5 p-6 rounded-3xl hover:border-[#00d260]/40 transition-all duration-500 group relative flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-2xl bg-[#00d260]/5 flex items-center justify-center mb-6 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-[#00d260]/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative w-20 h-20 rounded-2xl border border-[#00d260]/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#00d260] drop-shadow-[0_0_10px_rgba(0,210,96,0.8)]"><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" y1="6" x2="6" y2="6" /><line x1="6" y1="18" x2="6" y2="18" /></svg>
+              <div className="relative w-12 h-12 rounded-xl border border-[#00d260]/30 flex items-center justify-center bg-[#0a0a0a]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#00d260] drop-shadow-[0_0_10px_rgba(0,210,96,0.8)]"><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" y1="6" x2="6" y2="6" /><line x1="6" y1="18" x2="6" y2="18" /></svg>
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-4">Backend Development</h3> 
-            <p className="text-gray-500 text-sm leading-relaxed mb-10">Secure and robust backend solutions.</p>
-            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-3.5 mt-6 rounded-xl border border-white/10 text-sm font-bold group-hover:bg-[#00d260] group-hover:border-[#00d260] group-hover:text-black transition-all duration-300">
+            <h3 className="text-xl font-bold mb-3">Backend Development</h3> 
+            <p className="text-gray-500 text-xs leading-relaxed mb-6">Secure and robust backend solutions.</p>
+            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-2.5 mt-2 rounded-xl border border-white/10 text-xs font-bold group-hover:bg-[#00d260] group-hover:border-[#00d260] group-hover:text-black transition-all duration-300">
               Learn More →
             </button>
           </div>
 
           {/* Service 5: Digital Marketing */}
-          <div className="bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem] hover:border-blue-500/40 transition-all duration-500 group relative flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-3xl bg-blue-500/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
+          <div className="bg-[#0a0a0a] border border-white/5 p-6 rounded-3xl hover:border-blue-500/40 transition-all duration-500 group relative flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-2xl bg-blue-500/5 flex items-center justify-center mb-6 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative w-20 h-20 rounded-2xl border border-blue-500/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]"><path d="M3 11l18-5v12L3 13v-2z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg>
+              <div className="relative w-12 h-12 rounded-xl border border-blue-500/30 flex items-center justify-center bg-[#0a0a0a]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]"><path d="M3 11l18-5v12L3 13v-2z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg>
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-4">Digital Marketing</h3>
-            <p className="text-gray-500 text-sm leading-relaxed mb-10">SEO, social media & ads that grow your brand.</p>
-            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-3.5 rounded-xl border border-white/10 text-sm font-bold group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
+            <h3 className="text-xl font-bold mb-3">Digital Marketing</h3>
+            <p className="text-gray-500 text-xs leading-relaxed mb-6">SEO, social media & ads that grow your brand.</p>
+            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-2.5 rounded-xl border border-white/10 text-xs font-bold group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
               Learn More →
             </button>
           </div>
@@ -346,7 +400,7 @@ export default function Home() {
         </div>
 
         {/* Unified Premium Container */}
-        <div className="bg-[#080808] border border-white/5 rounded-[4rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
+        <div className="bg-[#080808] border border-white/5 rounded-[2rem] lg:rounded-[4rem] p-8 md:p-12 lg:p-20 shadow-2xl relative overflow-hidden">
           {/* Subtle Background Accent */}
           <div className="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-[#00d260]/20 to-transparent"></div>
 
@@ -427,85 +481,57 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="projects" className="max-w-[1400px] mx-auto px-8 py-32 border-t border-white/5">
+      <section id="projects" className="max-w-[1200px] mx-auto px-8 pt-32 pb-16 border-t border-white/5">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-4">
             <span className="text-[#00d260] font-bold text-sm tracking-[0.2em] uppercase">OUR PORTFOLIO</span>
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight">
+            <h2 className="text-4xl lg:text-6xl font-bold tracking-tight">
               Some Of Our <span className="text-[#00d260]">Recent Work</span>
             </h2>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {[
-            { 
-              title: "Makaan Real Estate", 
-              category: "Web Application", 
-              link: "https://real-estate-delta-indol.vercel.app/",
-              image: "/project1.png"
-            },
-            { 
-              title: "Invoice Builder", 
-              category: "Web Application", 
-              link: "https://invoice-builder-ujch.vercel.app/",
-              image: "/project2.png"
-            },
-            { 
-              title: "Tess Therapy", 
-              category: "Mental Health Care", 
-              link: "https://testherapy.com/",
-              image: "/project3.png"
-            },
-            { 
-              title: "Sunset Motel", 
-              category: "Web Application", 
-              link: "https://motel-app-one.vercel.app/",
-              image: "/project4.png"
-            },
-            { title: "Marketing Website", category: "UI/UX Design", link: "https://vercel.com/placeholder-5" }
-          ].map((project, index) => (
-            <div key={index} className="group flex flex-col space-y-4">
-              {/* Image Container */}
-              <div className="relative aspect-[4/5] rounded-[2rem] bg-[#0a0a0a] border border-white/10 overflow-hidden transition-all duration-500 group-hover:border-blue-500/50 group-hover:shadow-[0_0_40px_rgba(59,130,246,0.2)]">
-                {/* Image or Placeholder */}
-                {project.image ? (
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-40 transition-opacity">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-white"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        <div className="relative overflow-hidden w-full group py-4">
+          <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] w-[max-content]">
+            {infiniteProjects.map((project, index) => (
+              <div key={index} className="flex flex-col space-y-3 w-[220px] lg:w-[260px] flex-shrink-0">
+                {/* Image Container */}
+                <div className="relative aspect-[4/5] rounded-3xl bg-[#0a0a0a] border border-white/10 overflow-hidden transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_0_40px_rgba(59,130,246,0.2)] group/card">
+                  {/* Image or Placeholder */}
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110" />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover/card:opacity-40 transition-opacity">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                        <circle cx="9" cy="9" r="2"/>
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                      </svg>
+                    </div>
+                  )}
+                  {/* Blue Glowing Frame */}
+                  <div className="absolute inset-0 border-2 border-blue-500/0 group-hover/card:border-blue-500/30 rounded-3xl transition-all duration-500 pointer-events-none"></div>
+                  {/* Hover Button Overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="bg-white text-black font-bold px-6 py-2.5 text-xs rounded-full translate-y-4 group-hover/card:translate-y-0 transition-all duration-500 hover:bg-[#00d260] hover:text-white flex items-center gap-2">
+                      View More
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 7h10v10"/>
+                        <path d="M7 17 17 7"/>
+                      </svg>
+                    </a>
                   </div>
-                )}
-
-                {/* Blue Glowing Frame */}
-                <div className="absolute inset-0 border-2 border-blue-500/0 group-hover:border-blue-500/30 rounded-[2rem] transition-all duration-500 pointer-events-none"></div>
-                
-                {/* Hover Button Overlay */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white text-black font-bold px-8 py-3 rounded-full translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#00d260] hover:text-white flex items-center gap-2"
-                  >
-                    View More
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                  </a>
+                </div>
+                {/* Text Content */}
+                <div className="px-1 space-y-0.5">
+                  <h3 className="text-lg font-bold hover:text-[#00d260] transition-colors">{project.title}</h3>
+                  <p className="text-gray-500 text-xs font-medium">{project.category}</p>
                 </div>
               </div>
-
-              {/* Text Content */}
-              <div className="px-2 space-y-1">
-                <h3 className="text-xl font-bold group-hover:text-[#00d260] transition-colors">{project.title}</h3>
-                <p className="text-gray-500 text-sm font-medium">{project.category}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
       </section>
 
       {/* Adding custom animations in a style tag for this specific layout */}
@@ -518,14 +544,19 @@ export default function Home() {
           0%, 100% { transform: translateY(0) scale(1); }
           50% { transform: translateY(-15px) scale(1.05); }
         }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 12px)); } /* 12px is half of the 24px (gap-6) */
+        }
         .animate-float { animation: float 6s ease-in-out infinite; }
         .animate-float-slow { animation: float 8s ease-in-out infinite; }
         .animate-bounce-slow { animation: bounce-slow 7s ease-in-out infinite; }
         .animate-bounce-delayed { animation: bounce-slow 7s ease-in-out infinite 2s; }
+        .animate-marquee { animation: marquee 30s linear infinite; }
       `}</style>
       {/* Contact Section */}
-      <section id="contact" className="max-w-[1400px] mx-auto px-8 pt-32 pb-16">
-        <div className="bg-[#080808] border border-white/5 rounded-[4rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
+      <section id="contact" className="max-w-[1400px] mx-auto px-6 md:px-8 pt-16 pb-12">
+        <div className="bg-[#080808] border border-white/5 rounded-[2rem] lg:rounded-[4rem] p-8 md:p-12 lg:p-20 shadow-2xl relative">
           {/* Subtle Background Accent */}
           <div className="absolute top-0 right-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-[#00d260]/20 to-transparent"></div>
 
@@ -587,7 +618,7 @@ export default function Home() {
             {/* Right Column: Form */}
             <div className="lg:col-span-5 space-y-4">
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
                     type="text"
                     name="name"
@@ -595,7 +626,7 @@ export default function Home() {
                     onChange={handleInputChange}
                     placeholder="Your Name"
                     required
-                    className="bg-[#0f0f0f] border border-white/5 rounded-xl px-6 py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm w-full"
+                    className="bg-[#0f0f0f] border border-white/5 rounded-xl px-4 py-3 md:px-6 md:py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm w-full"
                   />
                   <input
                     type="email"
@@ -604,7 +635,7 @@ export default function Home() {
                     onChange={handleInputChange}
                     placeholder="Your Email"
                     required
-                    className="bg-[#0f0f0f] border border-white/5 rounded-xl px-6 py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm w-full"
+                    className="bg-[#0f0f0f] border border-white/5 rounded-xl px-4 py-3 md:px-6 md:py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm w-full"
                   />
                 </div>
                 <input
@@ -614,7 +645,7 @@ export default function Home() {
                   onChange={handleInputChange}
                   placeholder="Your Subject"
                   required
-                  className="w-full bg-[#0f0f0f] border border-white/5 rounded-xl px-6 py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm"
+                  className="w-full bg-[#0f0f0f] border border-white/5 rounded-xl px-4 py-3 md:px-6 md:py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm"
                 />
                 <textarea
                   name="message"
@@ -623,7 +654,7 @@ export default function Home() {
                   placeholder="Your Message"
                   rows="4"
                   required
-                  className="w-full bg-[#0f0f0f] border border-white/5 rounded-xl px-6 py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm resize-none"
+                  className="w-full bg-[#0f0f0f] border border-white/5 rounded-xl px-4 py-3 md:px-6 md:py-4 outline-none focus:border-[#00d260]/30 transition-all text-sm resize-none"
                 ></textarea>
 
                 <button type="submit" className="w-full bg-gradient-to-r from-[#00d260] to-[#05ff7a] text-black font-bold py-5 rounded-2xl flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_30px_rgba(0,210,96,0.3)]">
@@ -637,7 +668,7 @@ export default function Home() {
         </div>
       </section>
       {/* Footer Section */}
-      <footer className="border-t border-white/5 bg-[#050505] py-8">
+      <footer className="border-t border-white/10 bg-[#0a0a0a] pt-8 pb-24 md:py-12 relative z-10 mt-4">
         <div className="max-w-[1400px] mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo & Brand */}
           <div className="flex items-center gap-3">
