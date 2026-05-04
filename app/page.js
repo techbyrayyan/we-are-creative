@@ -60,7 +60,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white font-sans">
+    <main className="min-h-screen w-full bg-[#050505] text-white font-sans overflow-x-hidden">
       <div className="sticky top-0 z-50 bg-[#050505]/95 backdrop-blur-md border-b border-white/5">
         <nav className="flex items-center justify-between px-8 py-4 max-w-[1400px] mx-auto transition-all duration-300">
 
@@ -198,7 +198,7 @@ export default function Home() {
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <span className="text-[#00d260] font-bold text-sm tracking-widest uppercase">ABOUT US</span>
-            <h2 className="text-4xl lg:text-6xl font-bold leading-tight">
+            <h2 className="text-4xl font-bold mt-5 leading-tight">
               We're a Creative Web <br />
               <span className="text-[#00d260]">Agency</span>
             </h2>
@@ -289,7 +289,14 @@ export default function Home() {
             <div className="w-24 h-24 rounded-3xl bg-cyan-400/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-cyan-400/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative w-20 h-20 rounded-2xl border border-cyan-400/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"><circle cx="12" cy="12" r="2" /><path d="M12 7a15.65 15.65 0 0 0-3.5 9.5" /><path d="M12 17a15.65 15.65 0 0 0 3.5-9.5" /><path d="M7 12a15.65 15.65 0 0 0 9.5 3.5" /><path d="M17 12a15.65 15.65 0 0 0-9.5-3.5" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="-11.5 -10.23174 23 20.46348" className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
+                  <circle cx="0" cy="0" r="2.05" fill="currentColor"/>
+                  <g stroke="currentColor" strokeWidth="1.2" fill="none">
+                    <ellipse rx="11" ry="4.2"/>  
+                    <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+                    <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+                  </g>
+                </svg>
               </div>
             </div>
             <h3 className="text-2xl font-bold mb-4">React Development</h3>
@@ -304,10 +311,10 @@ export default function Home() {
             <div className="w-24 h-24 rounded-3xl bg-[#00d260]/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-[#00d260]/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative w-20 h-20 rounded-2xl border border-[#00d260]/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#00d260] drop-shadow-[0_0_10px_rgba(0,210,96,0.8)]"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#00d260] drop-shadow-[0_0_10px_rgba(0,210,96,0.8)]"><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" y1="6" x2="6" y2="6" /><line x1="6" y1="18" x2="6" y2="18" /></svg>
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-4">Backend Development</h3>
+            <h3 className="text-2xl font-bold mb-4">Backend Development</h3> 
             <p className="text-gray-500 text-sm leading-relaxed mb-10">Secure and robust backend solutions.</p>
             <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-3.5 mt-6 rounded-xl border border-white/10 text-sm font-bold group-hover:bg-[#00d260] group-hover:border-[#00d260] group-hover:text-black transition-all duration-300">
               Learn More →
@@ -319,7 +326,7 @@ export default function Home() {
             <div className="w-24 h-24 rounded-3xl bg-blue-500/5 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-500">
               <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative w-20 h-20 rounded-2xl border border-blue-500/30 flex items-center justify-center bg-[#0a0a0a]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]"><path d="M18 8a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3Z" /><path d="M10 8a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3Z" /><path d="M14 16a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3Z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]"><path d="M3 11l18-5v12L3 13v-2z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg>
               </div>
             </div>
             <h3 className="text-2xl font-bold mb-4">Digital Marketing</h3>
@@ -332,21 +339,21 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section id="projects" className="max-w-[1400px] mx-auto px-8 py-32">
+      <section id="why-us" className="max-w-[1400px] mx-auto px-8 py-32">
         <div className="text-center mb-16 space-y-4">
           <span className="text-[#00d260] font-bold text-sm tracking-[0.2em] uppercase">WHY CHOOSE US</span>
           <h2 className="text-4xl lg:text-5xl font-bold">We Deliver More Than <span className="text-[#00d260]">Just Code</span></h2>
         </div>
 
         {/* Unified Premium Container */}
-        <div className="bg-[#080808] border border-white rounded-[4rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
+        <div className="bg-[#080808] border border-white/5 rounded-[4rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
           {/* Subtle Background Accent */}
           <div className="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-[#00d260]/20 to-transparent"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 relative z-10">
 
             {/* Feature 1 */}
-            <div className="flex flex-col items-center text-center space-y-8 px-6 md:border-r border-white">
+            <div className="flex flex-col items-center text-center space-y-8 px-6 md:border-r border-white/10">
               <div className="relative group">
                 <div className="absolute inset-0 bg-blue-600/30 blur-3xl rounded-full opacity-40 group-hover:opacity-70 transition-opacity"></div>
                 <div className="relative w-20 h-20 rounded-full border border-blue-500/20 flex items-center justify-center bg-blue-500/5 group-hover:scale-110 transition-transform duration-500">
@@ -419,6 +426,88 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Portfolio Section */}
+      <section id="projects" className="max-w-[1400px] mx-auto px-8 py-32 border-t border-white/5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="space-y-4">
+            <span className="text-[#00d260] font-bold text-sm tracking-[0.2em] uppercase">OUR PORTFOLIO</span>
+            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight">
+              Some Of Our <span className="text-[#00d260]">Recent Work</span>
+            </h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {[
+            { 
+              title: "Makaan Real Estate", 
+              category: "Web Application", 
+              link: "https://real-estate-delta-indol.vercel.app/",
+              image: "/project1.png"
+            },
+            { 
+              title: "Invoice Builder", 
+              category: "Web Application", 
+              link: "https://invoice-builder-ujch.vercel.app/",
+              image: "/project2.png"
+            },
+            { 
+              title: "Tess Therapy", 
+              category: "Mental Health Care", 
+              link: "https://testherapy.com/",
+              image: "/project3.png"
+            },
+            { 
+              title: "Sunset Motel", 
+              category: "Web Application", 
+              link: "https://motel-app-one.vercel.app/",
+              image: "/project4.png"
+            },
+            { title: "Marketing Website", category: "UI/UX Design", link: "https://vercel.com/placeholder-5" }
+          ].map((project, index) => (
+            <div key={index} className="group flex flex-col space-y-4">
+              {/* Image Container */}
+              <div className="relative aspect-[4/5] rounded-[2rem] bg-[#0a0a0a] border border-white/10 overflow-hidden transition-all duration-500 group-hover:border-blue-500/50 group-hover:shadow-[0_0_40px_rgba(59,130,246,0.2)]">
+                {/* Image or Placeholder */}
+                {project.image ? (
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-40 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-white"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                  </div>
+                )}
+
+                {/* Blue Glowing Frame */}
+                <div className="absolute inset-0 border-2 border-blue-500/0 group-hover:border-blue-500/30 rounded-[2rem] transition-all duration-500 pointer-events-none"></div>
+                
+                {/* Hover Button Overlay */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-white text-black font-bold px-8 py-3 rounded-full translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#00d260] hover:text-white flex items-center gap-2"
+                  >
+                    View More
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                  </a>
+                </div>
+              </div>
+
+              {/* Text Content */}
+              <div className="px-2 space-y-1">
+                <h3 className="text-xl font-bold group-hover:text-[#00d260] transition-colors">{project.title}</h3>
+                <p className="text-gray-500 text-sm font-medium">{project.category}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Adding custom animations in a style tag for this specific layout */}
       <style jsx global>{`
         @keyframes float {
@@ -435,7 +524,7 @@ export default function Home() {
         .animate-bounce-delayed { animation: bounce-slow 7s ease-in-out infinite 2s; }
       `}</style>
       {/* Contact Section */}
-      <section id="contact" className="max-w-[1400px] mx-auto px-8 py-32">
+      <section id="contact" className="max-w-[1400px] mx-auto px-8 pt-32 pb-16">
         <div className="bg-[#080808] border border-white/5 rounded-[4rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
           {/* Subtle Background Accent */}
           <div className="absolute top-0 right-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-[#00d260]/20 to-transparent"></div>
@@ -447,8 +536,8 @@ export default function Home() {
               <div className="space-y-4 mt-7">
                 <span className="text-[#00d260] font-bold text-sm  tracking-[0.2em] uppercase">GET IN TOUCH</span>
                 <h2 className="text-2xl lg:text-3xl mt-8 font-bold leading-tight">
-                  <span className="whitespace-nowrap ">Let's Start Your</span> <br />
-                  <span className="text-[#00d260] whitespace-nowrap">Next Project</span>
+                  Let's Start Your <br />
+                  <span className="text-[#00d260]">Next Project</span>
                 </h2> 
                 <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
                   Have a project in mind? Let's discuss how we can bring your ideas to life.
@@ -548,7 +637,7 @@ export default function Home() {
         </div>
       </section>
       {/* Footer Section */}
-      <footer className="border-t border-white/5 bg-[#050505] py-8 mt-20">
+      <footer className="border-t border-white/5 bg-[#050505] py-8">
         <div className="max-w-[1400px] mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo & Brand */}
           <div className="flex items-center gap-3">
